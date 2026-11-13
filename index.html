@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#10131e">
+  <title>마피아 20 · 온라인 파티 게임</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
+</head>
+<body>
+  <main class="app">
+    <header>
+      <a class="brand" href="#"><span class="mark">M</span> MAFIA <b>20</b></a>
+      <span id="connectionStatus" class="status">온라인 대기</span>
+    </header>
+
+    <section id="setup" class="layout">
+      <div class="intro">
+        <span class="eyebrow">ONLINE SOCIAL DEDUCTION</span>
+        <h1>20명이 함께하는<br><em>마피아의 밤</em></h1>
+        <p>방 코드를 공유해 친구들과 온라인으로 플레이하세요. 역할은 플레이어에게 비공개로 전달됩니다.</p>
+        <div class="balance-note">
+          <b>⚖ 추천 밸런스 · 20명</b>
+          <span>시민 11 · 마피아 5 · 중립 4</span>
+          <small>마피아 5명은 토론과 투표로 충분히 대응 가능하고, 중립 4명은 각자 독립 승리 조건을 가집니다.</small>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="tabs">
+          <button class="tab active" data-tab="host">방 만들기</button>
+          <button class="tab" data-tab="join">방 참가</button>
+        </div>
+
+        <div id="hostPane">
+          <label for="hostName">내 이름</label>
+          <input id="hostName" maxlength="20" placeholder="플레이어 이름">
+          <button id="createRoom" class="primary">온라인 방 만들기 <b>→</b></button>
+        </div>
+
+        <div id="joinPane" class="hidden">
+          <label for="joinName">내 이름</label>
+          <input id="joinName" maxlength="20" placeholder="플레이어 이름">
+          <label for="roomCode">방 코드</label>
+          <input id="roomCode" maxlength="6" placeholder="예: A7K2Q9" class="code-input">
+          <button id="joinRoom" class="primary">방 참가하기 <b>→</b></button>
+        </div>
+
+        <div id="roomPanel" class="hidden">
+          <div class="room-code">
+            <div>
+              <span class="eyebrow">방 코드</span>
+              <strong id="roomLabel"></strong>
+            </div>
+            <button id="copyCode" class="secondary">코드 복사</button>
+          </div>
+          <p class="hint">친구에게 코드를 보내고 최대 20명이 참가할 때까지 기다리세요. 모든 참가자는 이 페이지를 열어야 합니다.</p>
+          <div id="lobbyPlayers" class="lobby-list"></div>
+          <div id="rolePicker" class="role-picker"></div>
+          <button id="startGame" class="primary" disabled>게임 시작 <b>→</b></button>
+        </div>
+
+        <p class="fineprint">
+          온라인 통신은 PeerJS 공개 중계 서버를 사용합니다. 게임 내 역할/상태는 별도의 게임 서버에 저장되지 않습니다. 방장은 신뢰할 수 있는 사람이 만들고 진행하세요.
+        </p>
+      </div>
+    </section>
+
+    <section id="game" class="hidden">
+      <div class="game-heading">
+        <div>
+          <span id="phase" class="eyebrow"></span>
+          <h1 id="gameTitle"></h1>
+          <p id="gameMessage"></p>
+        </div>
+        <div class="round">ROUND <b id="round">0</b></div>
+      </div>
+      <div id="myRole" class="my-role hidden"></div>
+      <div id="publicBoard" class="panel"></div>
+      <div id="gameControls"></div>
+    </section>
+
+    <footer>한 기기 또는 온라인 방에서 함께 플레이 · 도박사 역할 제외</footer>
+  </main>
+
+  <div id="toast" role="status"></div>
+  <script src="game.js"></script>
+</body>
+</html>
